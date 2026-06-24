@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dt3cb62kfufw7"]
+
+[ext_resource type="Script" uid="uid://ncj26b4x6e66" path="res://scripts/door.gd" id="1_il3kx"]
+[ext_resource type="Texture2D" uid="uid://c4r0aondifnrd" path="res://assets/tilesheet_placeholder.png" id="2_eg4eh"]
+[ext_resource type="AudioStream" uid="uid://d0dl4ohvj00ss" path="res://assets/audio/checkpoint.wav" id="3_5m7u8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqw1m"]
+atlas = ExtResource("2_eg4eh")
+region = Rect2(1024, 384, 128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf2ba"]
+size = Vector2(36, 128)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l0weg"]
+a = Vector2(60, -63)
+b = Vector2(60, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4ncb"]
+atlas = ExtResource("2_eg4eh")
+region = Rect2(896, 512, 128, 128)
+
+[node name="Door" type="StaticBody2D"]
+disable_mode = 2
+collision_layer = 0
+script = ExtResource("1_il3kx")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_hqw1m")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-46, 0)
+shape = SubResource("RectangleShape2D_yf2ba")
+
+[node name="Sensor" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="Sensor"]
+shape = SubResource("SegmentShape2D_l0weg")
+
+[node name="Sprite" type="Sprite2D" parent="Sensor"]
+position = Vector2(60, 0)
+texture = SubResource("AtlasTexture_c4ncb")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5m7u8")
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]

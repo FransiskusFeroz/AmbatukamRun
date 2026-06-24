@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck46ss6w2v1ao"]
+
+[ext_resource type="Texture2D" uid="uid://cjoexusxl2qta" path="res://assets/UI/spinner/spinner.png" id="1_i4i20"]
+[ext_resource type="Script" uid="uid://b4vpdjjf5y6lm" path="res://scripts/spinner.gd" id="1_pe4sb"]
+[ext_resource type="Texture2D" uid="uid://cwnyx0lbydsos" path="res://assets/UI/spinner/spinner_front.png" id="2_5uc60"]
+[ext_resource type="Texture2D" uid="uid://xlqbtqqv51s8" path="res://assets/UI/spinner/spinner_clear.png" id="3_m1xa2"]
+[ext_resource type="Texture2D" uid="uid://be8j1ieq4j8ce" path="res://assets/UI/spinner/prompt.png" id="4_2c6r2"]
+[ext_resource type="Theme" uid="uid://vtu8rkye71a8" path="res://resources/theme.tres" id="5_c15xk"]
+
+[node name="Spinner" type="Node2D"]
+script = ExtResource("1_pe4sb")
+metadata/_edit_horizontal_guides_ = [-12.0]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Body" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Middle" type="Control" parent="CanvasLayer/Body"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spinner" type="Node2D" parent="CanvasLayer/Body/Middle"]
+unique_name_in_owner = true
+
+[node name="Back" type="Sprite2D" parent="CanvasLayer/Body/Middle/Spinner"]
+texture = ExtResource("1_i4i20")
+
+[node name="Front" type="Sprite2D" parent="CanvasLayer/Body/Middle/Spinner"]
+z_index = 1
+texture = ExtResource("2_5uc60")
+
+[node name="Progress" type="TextureProgressBar" parent="CanvasLayer/Body/Middle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+fill_mode = 3
+texture_progress = ExtResource("3_m1xa2")
+
+[node name="Prompt" type="Sprite2D" parent="CanvasLayer/Body/Middle"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("4_2c6r2")
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/Body"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_c15xk")
+theme_override_font_sizes/font_size = 127
+text = "143"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

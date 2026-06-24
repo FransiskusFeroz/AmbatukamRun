@@ -1,0 +1,118 @@
+[gd_resource type="Theme" format=3 uid="uid://vtu8rkye71a8"]
+
+[ext_resource type="Texture2D" uid="uid://wgkjtav00m0o" path="res://assets/UI/checkbox_true.png" id="1_udp68"]
+[ext_resource type="Texture2D" uid="uid://cx8ho77f8ys4h" path="res://assets/UI/radio_true.png" id="2_vidcg"]
+[ext_resource type="Texture2D" uid="uid://6sded286pbrp" path="res://assets/UI/radio_false.png" id="3_1bvpa"]
+[ext_resource type="Texture2D" uid="uid://tk7lo3g34fl2" path="res://assets/UI/checkbox_false.png" id="4_60yue"]
+[ext_resource type="Texture2D" uid="uid://mw2vlujfeoll" path="res://assets/UI/dropdown_arrow.png" id="5_iehnn"]
+[ext_resource type="FontFile" uid="uid://b8ebn50lsn22o" path="res://assets/fonts/Roboto-Bold.ttf" id="6_t7onf"]
+[ext_resource type="FontFile" uid="uid://sd8dpgt5fkkn" path="res://assets/fonts/Roboto-BoldItalic.ttf" id="7_ouajo"]
+[ext_resource type="FontFile" uid="uid://b4nk65x4yugix" path="res://assets/fonts/Roboto-Italic.ttf" id="8_j5sbq"]
+[ext_resource type="FontFile" uid="uid://0052n8dapmos" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="9_lbyuf"]
+[ext_resource type="FontFile" uid="uid://reqj0y4ycm3p" path="res://assets/fonts/Roboto-Regular.ttf" id="10_ogd5j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vjy4"]
+bg_color = Color(0.31, 0, 0, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.24, 0.108, 0.108, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anfyl"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 10
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5jkt"]
+bg_color = Color(0.26, 0.1404, 0.1404, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.2, 0.074, 0.0782, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn2ue"]
+bg_color = Color(0.23, 0.1702, 0.1702, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.18, 0.0882, 0.09126, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_571rs"]
+bg_color = Color(0.23, 0.1702, 0.1702, 1)
+border_width_top = 5
+border_width_right = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynyh7"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.65, 0.351, 0.351, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_650ll"]
+color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_udp68"]
+color = Color(0.317039, 0, 0.00468795, 1)
+thickness = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5wxg"]
+bg_color = Color(0.08, 0.0413333, 0, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bgkpm"]
+color = Color(1, 0, 0, 1)
+vertical = true
+
+[resource]
+default_base_scale = 2.0
+default_font = ExtResource("10_ogd5j")
+default_font_size = 32
+Button/colors/font_color = Color(0.68842, 0.635812, 0.617625, 1)
+Button/colors/font_disabled_color = Color(1, 0.76, 0.76, 0.431373)
+Button/colors/font_focus_color = Color(1, 0.55, 0, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_pressed_color = Color(1, 0.54902, 0, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/styles/disabled = SubResource("StyleBoxFlat_5vjy4")
+Button/styles/focus = SubResource("StyleBoxFlat_anfyl")
+Button/styles/hover = SubResource("StyleBoxFlat_x5jkt")
+Button/styles/normal = SubResource("StyleBoxFlat_dn2ue")
+Button/styles/pressed = SubResource("StyleBoxFlat_571rs")
+CheckBox/icons/checked = ExtResource("1_udp68")
+CheckBox/icons/radio_checked = ExtResource("2_vidcg")
+CheckBox/icons/radio_unchecked = ExtResource("3_1bvpa")
+CheckBox/icons/unchecked = ExtResource("4_60yue")
+ColorPickerButton/styles/normal = SubResource("StyleBoxFlat_ynyh7")
+HSeparator/styles/separator = SubResource("StyleBoxLine_650ll")
+HSlider/styles/slider = SubResource("StyleBoxLine_udp68")
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+OptionButton/icons/arrow = ExtResource("5_iehnn")
+Panel/styles/panel = SubResource("StyleBoxFlat_y5wxg")
+PopupMenu/icons/checked = ExtResource("1_udp68")
+PopupMenu/icons/checked_disabled = null
+PopupMenu/icons/radio_checked = ExtResource("2_vidcg")
+PopupMenu/icons/radio_checked_disabled = null
+PopupMenu/icons/radio_unchecked = ExtResource("3_1bvpa")
+PopupMenu/icons/radio_unchecked_disabled = null
+PopupMenu/icons/unchecked = ExtResource("4_60yue")
+PopupMenu/icons/unchecked_disabled = null
+RichTextLabel/fonts/bold_font = ExtResource("6_t7onf")
+RichTextLabel/fonts/bold_italics_font = ExtResource("7_ouajo")
+RichTextLabel/fonts/italics_font = ExtResource("8_j5sbq")
+RichTextLabel/fonts/mono_font = ExtResource("9_lbyuf")
+RichTextLabel/fonts/normal_font = ExtResource("10_ogd5j")
+VSeparator/styles/separator = SubResource("StyleBoxLine_bgkpm")

@@ -1,0 +1,352 @@
+[gd_scene load_steps=22 format=4 uid="uid://dj2ov8njekcq5"]
+
+[ext_resource type="Script" uid="uid://fo7aduva5y0s" path="res://scripts/level_01.gd" id="1_1ey3t"]
+[ext_resource type="TileSet" uid="uid://d2644xd3tc5ft" path="res://tileset.tres" id="2_t0hvh"]
+[ext_resource type="PackedScene" uid="uid://dp177apyk0hyn" path="res://scenes/2d_player.tscn" id="3_kfebt"]
+[ext_resource type="PackedScene" uid="uid://dhgr1t5wi2eee" path="res://scenes/dialogue_area.tscn" id="4_r72dd"]
+[ext_resource type="Texture2D" uid="uid://cnve55b50onm2" path="res://assets/pisang_goreg.png" id="5_ijn0p"]
+[ext_resource type="PackedScene" uid="uid://dt3cb62kfufw7" path="res://scenes/door.tscn" id="6_jmes4"]
+[ext_resource type="Texture2D" uid="uid://bgl0auyt6yk26" path="res://assets/doni.png" id="7_tyxjt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rbjm"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_0wqvt"]
+script/source = "extends Area2D
+
+@export var dialog: Array[PackedStringArray]
+
+var triggered: bool = false
+
+
+func _ready():
+	Game.level_reset.connect(_on_reset)
+
+
+func _on_body_entered(body):
+	if body is Entity and body.is_in_group(\"player\"):
+		Game.dialogue.emit(dialog)
+		queue_free()
+
+
+func _on_reset():
+	triggered = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tyi7"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_lq5s0"]
+resource_name = "scr"
+script/source = "extends Area2D
+
+
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	print(body)
+	print(\"---\")
+	if body is Entity and body.is_in_group(\"player\"):
+		body.health = 0
+		collision_mask = 0
+		await Game.level_reset
+		collision_mask = 0b0001
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dkaxp"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gifpc"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_h477h"]
+resource_name = "scr"
+script/source = "extends Area2D
+
+var d1 = [
+	[
+		\"Budi\", \"Cok\"
+	],[
+		\"Budi\", \"Ada pisang goreng\"
+	],[
+		\"Budi\", \"Gua gak makan dari tadi anjir, pas bener\"
+	]
+]
+
+var d2 = [
+	[
+		\"Budi\", \"[i]*memakan pisang goreng*[/i] akhirnya...\"
+	], [
+		\"Budi\", \"Gw keluarnya lewat mana ya?\"
+	]
+]
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is PlayerEntity:
+		collision_mask = 0
+		Game.dialogue.emit(d1)
+		body.glide(Vector2(256, 1536))
+		await body.glide_finished
+		Game.dialogue.emit(d2)
+		await Game.dialogue_finished
+		queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4y4yt"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_0acyy"]
+resource_name = "scr2"
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Game.checkpoint_reached.connect(queue_free)
+
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is PlayerEntity:
+		#>----<#
+		Game.dialogue.emit([
+			[\"Budi\", \"kok nama ibu saya di situ?\",
+			\"res://assets/dialogue/ar1.png\"]
+		])
+		#>----<#
+		collision_mask = 0
+		await Game.level_reset
+		collision_mask = 0b0001
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7emw"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_qpro0"]
+resource_name = "scr3"
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is PlayerEntity:
+		#>----<#
+		Game.dialogue.emit([
+			[
+				\"Budi\",
+				\"uhh.... capek....\"
+			],
+			[
+				\"Budi\",
+				\"Ngantuk....\"
+			]
+		])
+		body.speed /= 2
+		#>----<#
+		collision_mask = 0
+		await Game.level_reset
+		collision_mask = 0b0001
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ehep"]
+size = Vector2(128, 128)
+
+[sub_resource type="GDScript" id="GDScript_xrovt"]
+resource_name = "scr4"
+script/source = "extends Area2D
+
+signal a
+var b: bool = false
+var c: bool = false
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if b or c:
+		#-64, 3264
+		$Doni.position += Vector2.LEFT * delta*512
+		if b and $Doni.position.x <= -64:
+			a.emit()
+			b = false
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is PlayerEntity:
+		collision_mask = 0
+		#>----<#
+
+		Game.dialogue.emit([
+			[
+				\"Budi\", \"siapa tuh?\"
+			]
+		])
+		await Game.dialogue_finished
+		await get_tree().process_frame
+		body.controllable = false
+		b = true
+		await a
+		Game.dialogue.emit([
+			[
+				\"Budi\", \"D-D-DONI?\"
+			],
+			[
+				\"Budi\", \"WOI DONI, INI GUA!\"
+			],
+			[
+				\"Doni\", \"...\"
+			],
+			[
+				\"Budi\", \"DONI!\"
+			],
+		])
+		await Game.dialogue_finished
+		body.controllable = false
+		c = true
+		$\"../Overlay\".show()
+		var tween = get_tree().create_tween()
+		tween.tween_property($\"../Overlay/ColorRect\", \"color:a\", 1.0, 2.0)
+		await tween.finished
+		Game.level_won.emit()
+		#>----<#
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjqc8"]
+size = Vector2(128, 128)
+
+[node name="GameWorld" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_1ey3t")
+player = NodePath("Player")
+
+[node name="Tilemap" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAMAAAACAAAAAAAAAAUAAAACAAAAAAABAAUAAAACAAAAAAABAAMAAAACAAAAAAACAAMAAAACAAAAAAD//wMAAAAAAAAAAAD//wQAAAACAAEAAAD//wUAAAAAAAEAAAADAAMAAAACAAAAAAAEAAMAAAAEAAAAAAACAAUAAAACAAAAAAADAAUAAAACAAAAAAAEAAUAAAADAAAAAAAFAAMAAAAFAAAAAAAFAAUAAAACAAAAAAAGAAUAAAACAAAAAAAHAAUAAAABAAEAAAAHAAQAAAACAAEAAAAHAAMAAAAFAAEAAAAFAAEAAAACAAAAAAAGAAEAAAACAAAAAAAHAAEAAAACAAAAAAAIAAEAAAACAAAAAAAJAAEAAAACAAAAAAAEAAEAAAAAAAAAAAAKAAEAAAACAAAAAAAKAAMAAAACAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAACAAEAAAAJAAUAAAACAAEAAAAJAAYAAAACAAEAAAAJAAcAAAACAAEAAAAHAAcAAAABAAAAAAAGAAcAAAAGAAEAAAAEAAYAAAACAAEAAAAEAAcAAAACAAEAAAAEAAgAAAACAAEAAAAEAAkAAAAEAAAAAAAFAAkAAAAFAAAAAAAEAAIAAAACAAEAAAALAAEAAAABAAAAAAALAAIAAAACAAEAAAALAAMAAAABAAEAAAAHAAgAAAACAAEAAAAJAAgAAAACAAEAAAAJAAkAAAACAAEAAAAHAAkAAAACAAEAAAAJAAoAAAABAAEAAAAHAAoAAAADAAEAAAAIAAoAAAACAAAAAAAFAAsAAAABAAAAAAAFAAwAAAACAAEAAAAFAA0AAAACAAEAAAAEAAsAAAACAAAAAAAFAA4AAAACAAEAAAAFAA8AAAACAAEAAAAHAAsAAAACAAEAAAAHAAwAAAACAAEAAAAHAA0AAAACAAEAAAAHAA4AAAACAAEAAAAHAA8AAAACAAEAAAAFABAAAAADAAEAAAAGABAAAAACAAAAAAAHABAAAAABAAEAAAADAAkAAAACAAAAAAABAAkAAAACAAAAAAAAAAkAAAACAAAAAAADAAsAAAAAAAAAAAADAAwAAAACAAEAAAADAA0AAAACAAEAAAD//wkAAAACAAAAAAD+/wkAAAAAAAAAAAD+/wsAAAACAAEAAAD+/wwAAAACAAEAAAD+/w0AAAACAAEAAAD+/w4AAAACAAEAAAAAAA4AAAAGAAEAAAABAA4AAAACAAAAAAACAA4AAAACAAAAAAADAA4AAAABAAEAAAACAAkAAAACAAAAAAD+/woAAAACAAEAAAADAAQAAAAIAAIAAAACAAQAAAAIAAIAAAABAAQAAAAIAAIAAAAAAAQAAAAIAAIAAAAEAAQAAAAIAAIAAAAFAAQAAAAIAAIAAAAGAAQAAAAIAAIAAAAGAAMAAAAIAAIAAAAGAAIAAAAIAAIAAAAFAAIAAAAIAAIAAAAHAAIAAAAIAAIAAAAIAAIAAAAIAAIAAAAIAAMAAAAIAAIAAAAIAAQAAAAIAAIAAAAIAAUAAAAIAAIAAAAIAAYAAAAIAAIAAAAHAAYAAAAIAAIAAAAGAAYAAAAIAAIAAAAFAAYAAAAIAAIAAAAFAAcAAAAIAAIAAAAFAAgAAAAIAAIAAAAGAAgAAAAIAAIAAAAGAAkAAAAIAAIAAAAGAAoAAAAIAAIAAAAFAAoAAAAIAAIAAAAEAAoAAAAIAAIAAAADAAoAAAAIAAIAAAACAAoAAAAIAAIAAAABAAoAAAAIAAIAAAAAAAoAAAAIAAIAAAD//woAAAAIAAIAAAD//wsAAAAIAAIAAAD//wwAAAAIAAIAAAD//w0AAAAIAAIAAAD//w4AAAAIAAIAAAD//w8AAAAIAAIAAAD+/w8AAAACAAEAAAD+/xAAAAAAAAEAAAD//xAAAAACAAAAAAAAABAAAAACAAAAAAAAAA8AAAAIAAIAAAABAA8AAAAIAAIAAAABABAAAAACAAAAAAACABAAAAACAAAAAAACAA8AAAAIAAIAAAADAA8AAAAIAAIAAAADABAAAAABAAAAAAAEABAAAAAIAAIAAAAEAA8AAAAIAAIAAAAAAA0AAAAIAAIAAAAAAAwAAAAIAAIAAAAAAAsAAAAIAAIAAAABAAsAAAAIAAIAAAABAAwAAAAIAAIAAAABAA0AAAAIAAIAAAACAA0AAAAIAAIAAAACAAwAAAAIAAIAAAACAAsAAAAIAAIAAAAGAAsAAAAIAAIAAAAGAAwAAAAIAAIAAAAGAA0AAAAIAAIAAAAGAA4AAAAIAAIAAAAGAA8AAAAIAAIAAAAIAAcAAAAIAAIAAAAIAAgAAAAIAAIAAAAIAAkAAAAIAAIAAAAJAAIAAAAIAAIAAAAKAAIAAAAIAAIAAAAEAAwAAAAIAAIAAAAEAA0AAAAIAAIAAAAEAA4AAAAIAAIAAAADABEAAAACAAEAAAAFABYAAAABAAEAAAAEABYAAAACAAAAAAADABYAAAACAAAAAAACABYAAAACAAAAAAABABYAAAACAAAAAAACABIAAAACAAAAAAABABIAAAACAAAAAAAAABIAAAACAAAAAAD//xIAAAACAAAAAAD+/xIAAAAAAAAAAAD+/xMAAAACAAEAAAD+/xQAAAACAAEAAAD+/xUAAAACAAEAAAD+/xYAAAACAAEAAAAAABYAAAAAAAAAAAAAABcAAAACAAEAAAAAABgAAAAAAAEAAAD+/xcAAAACAAEAAAD+/xgAAAABAAEAAAD9/xgAAAACAAAAAAD8/xgAAAACAAAAAAABABgAAAACAAAAAAACABgAAAACAAAAAAAAABoAAAAAAAAAAAABABoAAAACAAAAAAACABoAAAACAAAAAAD+/xoAAAABAAAAAAD9/xoAAAACAAAAAAD8/xoAAAACAAAAAAD+/xsAAAACAAEAAAD+/xwAAAACAAEAAAAAABsAAAACAAEAAAAAABwAAAACAAEAAAD7/xgAAAACAAAAAAD6/xgAAAACAAAAAAD5/xgAAAACAAAAAAD4/xgAAAAAAAAAAAD7/xoAAAACAAAAAAD6/xoAAAACAAAAAAD5/xoAAAACAAAAAAD4/xoAAAAAAAEAAAADABgAAAACAAAAAAAEABgAAAACAAAAAAAFABgAAAACAAAAAAAGABgAAAABAAAAAAADABoAAAACAAAAAAAEABoAAAACAAAAAAAFABoAAAACAAAAAAAGABoAAAABAAEAAAD+/x0AAAACAAEAAAD+/x4AAAACAAEAAAD+/x8AAAAAAAEAAAAAAB0AAAACAAEAAAAAAB4AAAACAAEAAAAAAB8AAAABAAEAAAD4/xkAAAACAAEAAAAGABkAAAACAAEAAAD//x8AAAACAAAAAAAEABEAAAAIAAIAAAACABMAAAAIAAIAAAABABMAAAAIAAIAAAAAABMAAAAIAAIAAAD//xMAAAAIAAIAAAD//xQAAAAIAAIAAAD//xUAAAAIAAIAAAD//xYAAAAIAAIAAAD//xcAAAAIAAIAAAD//xgAAAAHAAMAAAD9/xkAAAAIAAIAAAD8/xkAAAAIAAIAAAD7/xkAAAAIAAIAAAD6/xkAAAAIAAIAAAD5/xkAAAAIAAIAAAD//xoAAAAIAAIAAAD//xsAAAAIAAIAAAD//xwAAAAIAAIAAAD//x0AAAAIAAIAAAD//x4AAAAIAAIAAAAAABkAAAAIAAIAAAABABkAAAAIAAIAAAACABkAAAAIAAIAAAADABkAAAAIAAIAAAAEABkAAAAIAAIAAAAFABkAAAAIAAIAAAAAABUAAAAIAAIAAAAAABQAAAAIAAIAAAABABQAAAAIAAIAAAABABUAAAAIAAIAAAACABUAAAAIAAIAAAACABQAAAAIAAIAAAADABQAAAAIAAIAAAADABUAAAAIAAIAAAAEABUAAAAIAAIAAAAEABQAAAAIAAIAAAAEABMAAAAIAAIAAAAFABUAAAACAAEAAAAFABQAAAACAAEAAAAFABMAAAACAAEAAAAFABIAAAACAAEAAAAFABEAAAACAAEAAAADABIAAAABAAEAAAADABMAAAAIAAIAAAAEABIAAAAIAAIAAAD+/xkAAAAIAAIAAAD//xkAAAAIAAIAAAA=")
+tile_set = ExtResource("2_t0hvh")
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Overlay"]
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("3_kfebt")]
+position = Vector2(64, 576)
+controllable = true
+max_stamina = 2.0
+max_health = 100.0
+health = 100.0
+speed = 256.0
+team = 0
+metadata/_edit_group_ = true
+
+[node name="Camera" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+
+[node name="DialogueArea" parent="." instance=ExtResource("4_r72dd")]
+disable_mode = 2
+dialog = Array[PackedStringArray]([PackedStringArray("Budi", "Siapa cok nekad nyulik gw sampe gini?"), PackedStringArray("Budi", "Gw gk ada dosa besar")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueArea"]
+position = Vector2(832, 320)
+shape = SubResource("RectangleShape2D_0rbjm")
+
+[node name="DialogueArea2" parent="." instance=ExtResource("4_r72dd")]
+disable_mode = 2
+script = SubResource("GDScript_0wqvt")
+dialog = Array[PackedStringArray]([PackedStringArray("Budi", "Entar"), PackedStringArray("Budi", "Kayaknya didepan jebakan deh")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueArea2"]
+position = Vector2(832, 1216)
+shape = SubResource("RectangleShape2D_1tyi7")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="KillArea" type="Area2D" parent="."]
+disable_mode = 2
+script = SubResource("GDScript_lq5s0")
+
+[node name="Collision" type="CollisionShape2D" parent="KillArea"]
+position = Vector2(832, 1920)
+shape = SubResource("RectangleShape2D_dkaxp")
+
+[node name="DialogueArea3" parent="." instance=ExtResource("4_r72dd")]
+dialog = Array[PackedStringArray]([PackedStringArray("Beni", "Engga kali")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueArea3"]
+position = Vector2(832, 1664)
+shape = SubResource("RectangleShape2D_gifpc")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_h477h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(640, 1344)
+shape = SubResource("RectangleShape2D_4y4yt")
+
+[node name="PisangGoreg" type="Sprite2D" parent="Area2D"]
+position = Vector2(136, 1552)
+scale = Vector2(0.612022, 0.612022)
+texture = ExtResource("5_ijn0p")
+
+[node name="Area2D2" type="Area2D" parent="."]
+script = SubResource("GDScript_0acyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(576, 1856)
+shape = SubResource("RectangleShape2D_y7emw")
+
+[node name="Door" parent="." instance=ExtResource("6_jmes4")]
+position = Vector2(832, 832)
+rotation = -3.14159
+
+[node name="Area2D3" type="Area2D" parent="."]
+script = SubResource("GDScript_qpro0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(-64, 2888)
+shape = SubResource("RectangleShape2D_2ehep")
+
+[node name="Area2D4" type="Area2D" parent="."]
+script = SubResource("GDScript_xrovt")
+
+[node name="Doni" type="Sprite2D" parent="Area2D4"]
+position = Vector2(704, 3264)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_tyxjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+position = Vector2(-64, 3200)
+shape = SubResource("RectangleShape2D_rjqc8")
+
+[connection signal="body_entered" from="KillArea" to="KillArea" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D3" to="Area2D3" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D4" to="Area2D4" method="_on_body_entered"]

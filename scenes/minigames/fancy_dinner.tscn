@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://xn8naulu7e3e"]
+
+[ext_resource type="Script" uid="uid://c37quqn1478lk" path="res://scripts/m_fancy_dinner.gd" id="1_futum"]
+[ext_resource type="PackedScene" uid="uid://ck46ss6w2v1ao" path="res://scenes/minigames/fancy_dinner/spinner.tscn" id="2_p7wtc"]
+
+[sub_resource type="GDScript" id="GDScript_jhq12"]
+resource_name = "progbar"
+script/source = "extends ProgressBar
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	value = $\"../../../..\".succeses
+"
+
+[node name="Minigame" type="Node"]
+script = ExtResource("1_futum")
+spinner_scene = ExtResource("2_p7wtc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control2"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 144.0
+offset_right = 763.0
+offset_bottom = 188.0
+theme_override_font_sizes/font_size = 31
+text = "Cara main: putar sampe ada gambar teo"
+
+[node name="Control" type="Control" parent="CanvasLayer/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 71.635
+offset_right = 20.0
+offset_bottom = 111.635
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control2/Control"]
+layout_mode = 0
+offset_left = -276.0
+offset_top = -139.635
+offset_right = 380.0
+offset_bottom = -10.635
+theme_override_font_sizes/font_size = 91
+max_value = 5.0
+script = SubResource("GDScript_jhq12")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

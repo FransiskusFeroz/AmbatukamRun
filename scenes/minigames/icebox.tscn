@@ -1,0 +1,153 @@
+[gd_scene load_steps=15 format=3 uid="uid://b7d3kfm6ww2vo"]
+
+[ext_resource type="Script" uid="uid://blsywrus58ug7" path="res://scripts/icebox.gd" id="1_ctqam"]
+[ext_resource type="PackedScene" uid="uid://53teqhl6y6o5" path="res://scenes/3d_player.tscn" id="2_eqeub"]
+[ext_resource type="Texture2D" uid="uid://byfqx1lrkmjne" path="res://assets/snowflake.png" id="3_y77sv"]
+[ext_resource type="PackedScene" uid="uid://eksls7au4ju1" path="res://scenes/minigames/icebox/snow_tile.tscn" id="4_e451e"]
+[ext_resource type="PackedScene" uid="uid://dy4kcll8smpxo" path="res://scenes/minigames/icebox/table.tscn" id="5_w8ugf"]
+[ext_resource type="PackedScene" uid="uid://bclecstn375cd" path="res://scenes/minigames/icebox/door_tile.tscn" id="5_y77sv"]
+[ext_resource type="PackedScene" uid="uid://2re8cnox81nt" path="res://scenes/minigames/icebox/key.tscn" id="6_eqeub"]
+
+[sub_resource type="Curve" id="Curve_qyn8w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.196839, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ctqam"]
+curve = SubResource("Curve_qyn8w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_11sxi"]
+emission_shape_offset = Vector3(0, 10, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 0, 10)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ctqam")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11sxi"]
+transparency = 1
+albedo_texture = ExtResource("3_y77sv")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_qyn8w"]
+material = SubResource("StandardMaterial3D_11sxi")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Environment" id="Environment_11sxi"]
+background_mode = 1
+background_color = Color(1.92523e-07, 0.115419, 0.162796, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y77sv"]
+size = Vector3(5, 5, 5)
+
+[node name="Minigame" type="Node"]
+script = ExtResource("1_ctqam")
+
+[node name="Root" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="3DPlayer" parent="Root" instance=ExtResource("2_eqeub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88876, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Root/3DPlayer"]
+transform = Transform3D(0.999765, -0.0216753, 0, 0.0216753, 0.999765, 0, 0, 0, 1, 0, -1.71328, 0)
+amount = 30
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_11sxi")
+draw_pass_1 = SubResource("QuadMesh_qyn8w")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Root/3DPlayer"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Root"]
+environment = SubResource("Environment_11sxi")
+
+[node name="World" type="Node3D" parent="Root"]
+
+[node name="SnowTile" parent="Root/World" instance=ExtResource("4_e451e")]
+
+[node name="SnowTile7" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="SnowTile9" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(4.37114e-08, -3.82137e-15, 1, -8.74228e-08, -1, 0, 1, -8.74228e-08, -4.37114e-08, 10, 10, 0)
+
+[node name="SnowTile2" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="SnowTile10" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 25, 5, 0)
+
+[node name="SnowTile17" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, -1, 0, -1, 4.37114e-08, -8.74228e-08, 8.74228e-08, -3.82137e-15, -1, 25, 5, -10)
+
+[node name="SnowTile11" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="SnowTile13" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 0, -10)
+
+[node name="SnowTile19" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 0, -20)
+
+[node name="SnowTile14" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 20, 5, 5)
+
+[node name="SnowTile15" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 15, 5, -10)
+
+[node name="SnowTile16" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 20, 10, -10)
+
+[node name="SnowTile18" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, -8.74228e-08, -1, 0, 8.74228e-08, -7.64274e-15, -1, 20, 10, 0)
+
+[node name="SnowTile3" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 5)
+
+[node name="SnowTile4" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 10, 5, 5)
+
+[node name="SnowTile5" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 10, 5, -5)
+
+[node name="SnowTile6" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, -5)
+
+[node name="SnowTile8" parent="Root/World" instance=ExtResource("4_e451e")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -5, 5, 0)
+
+[node name="DoorTile" parent="Root/World" instance=ExtResource("5_y77sv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 20, 5, -15)
+locked = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Root"]
+transform = Transform3D(1, 0, 0, 0, 0.87373, 0.486412, 0, -0.486412, 0.87373, 0, 17.1365, 0)
+light_energy = 0.445
+light_indirect_energy = 2.33
+light_angular_distance = 6.0
+
+[node name="Table" parent="Root" instance=ExtResource("5_w8ugf")]
+transform = Transform3D(0.841728, 0, 0.539903, 0, 1, 0, -0.539903, 0, 0.841728, 8.67996, -1.0021e-06, -4.08492)
+
+[node name="WinArea" type="Area3D" parent="Root"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2.5, -20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Root/WinArea"]
+shape = SubResource("BoxShape3D_y77sv")
+
+[node name="Key" parent="." instance=ExtResource("6_eqeub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.65055, 0.729963, -3.8868)
+
+[connection signal="body_entered" from="Root/WinArea" to="." method="_on_win_area_body_entered"]
+[connection signal="interacted" from="Key" to="." method="_on_key_interacted"]

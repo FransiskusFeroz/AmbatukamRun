@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1n6114njo352"]
+
+[ext_resource type="PackedScene" uid="uid://bsh7t7pjoi3uk" path="res://scenes/user_entity.tscn" id="1_3dj0n"]
+[ext_resource type="Script" uid="uid://d2q5x0dy7cog4" path="res://scripts/enemy.gd" id="2_udymd"]
+[ext_resource type="Texture2D" uid="uid://5lh7qpih818h" path="res://assets/antagonist.jpeg" id="3_q4b7m"]
+[ext_resource type="AudioStream" uid="uid://de7xdr8vn4i00" path="res://assets/audio/enemy_alert.mp3" id="5_n5afc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6sj8"]
+radius = 64.4981
+
+[node name="Enemy" instance=ExtResource("1_3dj0n")]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("2_udymd")
+speed = 1024.0
+team = 1
+
+[node name="Center" parent="." index="0"]
+scale = Vector2(0.568889, 0.568889)
+texture = ExtResource("3_q4b7m")
+
+[node name="Navi" type="NavigationAgent2D" parent="." index="2"]
+
+[node name="NaviTimer" type="Timer" parent="." index="3"]
+wait_time = 0.089
+autostart = true
+
+[node name="KillArea" type="Area2D" parent="." index="4"]
+disable_mode = 2
+
+[node name="Collision" type="CollisionShape2D" parent="KillArea" index="0"]
+shape = SubResource("CircleShape2D_x6sj8")
+debug_color = Color(0.941176, 0, 0.615686, 0.419608)
+
+[node name="Sight" type="RayCast2D" parent="." index="5"]
+target_position = Vector2(256, 0)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource("5_n5afc")
+volume_db = 3.105
+autoplay = true
+
+[connection signal="timeout" from="NaviTimer" to="." method="_on_navi_timer_timeout"]
+[connection signal="body_entered" from="KillArea" to="." method="_on_kill_area_body_entered"]

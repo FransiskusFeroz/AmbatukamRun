@@ -1,0 +1,401 @@
+[gd_scene load_steps=27 format=3 uid="uid://bgg5bccemb0h3"]
+
+[ext_resource type="Script" uid="uid://bhf70f064kokl" path="res://scripts/main.gd" id="1_8e25w"]
+[ext_resource type="VideoStream" uid="uid://cdie6tt0cd48x" path="res://assets/victory.ogv" id="3_l3ujt"]
+[ext_resource type="Theme" uid="uid://vtu8rkye71a8" path="res://resources/theme.tres" id="4_v28nj"]
+[ext_resource type="Texture2D" uid="uid://t14ej5kk50xj" path="res://assets/placeholder/Characters/green_character.png" id="5_50wj5"]
+[ext_resource type="FontFile" uid="uid://dhaewipxhk44x" path="res://assets/fonts/tilt-neon/TiltNeon-Regular.ttf" id="6_kv3em"]
+[ext_resource type="Shader" uid="uid://nqgmpnuf3mpf" path="res://resources/shaders/wavy.tres" id="6_ur3er"]
+[ext_resource type="VideoStream" uid="uid://dq5kps4q6qqyt" path="res://assets/gameover.ogv" id="7_nb6ye"]
+[ext_resource type="FontFile" uid="uid://b8ebn50lsn22o" path="res://assets/fonts/Roboto-Bold.ttf" id="8_xhbhq"]
+[ext_resource type="FontFile" uid="uid://sd8dpgt5fkkn" path="res://assets/fonts/Roboto-BoldItalic.ttf" id="9_g8428"]
+[ext_resource type="FontFile" uid="uid://b4nk65x4yugix" path="res://assets/fonts/Roboto-Italic.ttf" id="10_ootgl"]
+[ext_resource type="FontFile" uid="uid://0052n8dapmos" path="res://assets/fonts/RobotoMono-VariableFont_wght.ttf" id="11_s3py4"]
+[ext_resource type="FontFile" uid="uid://reqj0y4ycm3p" path="res://assets/fonts/Roboto-Regular.ttf" id="12_08wgm"]
+[ext_resource type="FontFile" uid="uid://bj3g6m6wsfm7i" path="res://assets/fonts/orbitron/Orbitron-ExtraBold.ttf" id="13_dr4ql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trceg"]
+bg_color = Color(0.68, 0, 0, 1)
+corner_radius_top_right = 15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2s8y7"]
+shader = ExtResource("6_ur3er")
+shader_parameter/wave_repeat = true
+shader_parameter/wave_zoom = 9.335
+shader_parameter/wave_frequency = 17.8
+shader_parameter/wave_velocity = 13.955
+shader_parameter/wave_amplitude = 0.075
+shader_parameter/SecondaryColor = Color(1, 0, 0, 1)
+shader_parameter/static_scale = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77ebi"]
+bg_color = Color(0.850383, 0.303397, 0, 0.509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3ud1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anfyl"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8c4o4"]
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.327299, 0.327299, 0.327299, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imked"]
+bg_color = Color(0.529067, 0.529067, 0.529067, 1)
+border_width_top = 5
+border_width_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn2ue"]
+bg_color = Color(0.751882, 0.751881, 0.751881, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.400698, 0.400698, 0.400697, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lyjxb"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 4
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5wxg"]
+bg_color = Color(0.310617, 0.310617, 0.310617, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.228511, 0.228511, 0.228511, 1)
+
+[sub_resource type="Theme" id="Theme_si2fy"]
+default_base_scale = 2.0
+default_font = ExtResource("12_08wgm")
+default_font_size = 32
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_anfyl")
+Button/styles/hover = SubResource("StyleBoxFlat_8c4o4")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_imked")
+Button/styles/normal = SubResource("StyleBoxFlat_dn2ue")
+Button/styles/pressed = SubResource("StyleBoxFlat_imked")
+HSeparator/styles/separator = SubResource("StyleBoxFlat_lyjxb")
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+OptionButton/icons/arrow = null
+Panel/styles/panel = SubResource("StyleBoxFlat_y5wxg")
+RichTextLabel/fonts/bold_font = ExtResource("8_xhbhq")
+RichTextLabel/fonts/bold_italics_font = ExtResource("9_g8428")
+RichTextLabel/fonts/italics_font = ExtResource("10_ootgl")
+RichTextLabel/fonts/mono_font = ExtResource("11_s3py4")
+RichTextLabel/fonts/normal_font = ExtResource("12_08wgm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fb5q4"]
+shader = ExtResource("6_ur3er")
+shader_parameter/wave_repeat = true
+shader_parameter/wave_zoom = 1.385
+shader_parameter/wave_frequency = 4.0
+shader_parameter/wave_velocity = 1.0
+shader_parameter/wave_amplitude = 0.03
+shader_parameter/SecondaryColor = Color(0.107547, 0.624137, 1, 1)
+shader_parameter/static_scale = 0.001
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh20u"]
+bg_color = Color(3.85046e-06, 0.564481, 0.69596, 0.509804)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_8e25w")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="GameOver" type="VideoStreamPlayer" parent="UILayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+stream = ExtResource("7_nb6ye")
+expand = true
+
+[node name="Victory" type="VideoStreamPlayer" parent="UILayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+stream = ExtResource("3_l3ujt")
+volume_db = 24.0
+expand = true
+
+[node name="Dialogue" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("4_v28nj")
+
+[node name="Main" type="VBoxContainer" parent="UILayer/Dialogue"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Image" type="TextureRect" parent="UILayer/Dialogue/Main"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+texture = ExtResource("5_50wj5")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Speaker" type="MarginContainer" parent="UILayer/Dialogue/Main"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+
+[node name="Panel" type="Panel" parent="UILayer/Dialogue/Main/Speaker"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_trceg")
+
+[node name="Content" type="RichTextLabel" parent="UILayer/Dialogue/Main/Speaker"]
+layout_mode = 2
+text = "rraw"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Text" type="MarginContainer" parent="UILayer/Dialogue/Main"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UILayer/Dialogue/Main/Text"]
+layout_mode = 2
+
+[node name="Content" type="RichTextLabel" parent="UILayer/Dialogue/Main/Text"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Rawr"
+fit_content = true
+
+[node name="Buttons" type="HBoxContainer" parent="UILayer/Dialogue/Main"]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="UILayer/Dialogue/Main/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Lanjut"
+
+[node name="PauseInterface" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("4_v28nj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/PauseInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContinueButton" type="Button" parent="UILayer/PauseInterface/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lanjut"
+
+[node name="QuitButton" type="Button" parent="UILayer/PauseInterface/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Keluar
+"
+
+[node name="MinigameLose" type="Control" parent="UILayer"]
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("4_v28nj")
+
+[node name="Panel" type="Panel" parent="UILayer/MinigameLose"]
+material = SubResource("ShaderMaterial_2s8y7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77ebi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MinigameLose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/MinigameLose/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+
+[node name="Label" type="Label" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("6_kv3em")
+theme_override_font_sizes/font_size = 91
+text = "Anda KALAH"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UILayer/MinigameLose/HBoxContainer"]
+custom_minimum_size = Vector2(282, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Panel" type="Panel" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="HintLabel" type="RichTextLabel" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_t3ud1")
+bbcode_enabled = true
+text = "hint"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MinigameReset" type="Button" parent="UILayer/MinigameLose/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "RESTART"
+
+[node name="MinigameWin" type="Control" parent="UILayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_si2fy")
+
+[node name="Panel" type="Panel" parent="UILayer/MinigameWin"]
+material = SubResource("ShaderMaterial_fb5q4")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mh20u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MinigameWin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/MinigameWin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 25
+
+[node name="Label" type="Label" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("6_kv3em")
+theme_override_font_sizes/font_size = 91
+text = "mantap abangku"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UILayer/MinigameWin/HBoxContainer"]
+custom_minimum_size = Vector2(282, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Panel" type="Panel" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sublevel"
+horizontal_alignment = 1
+
+[node name="UnlockLabel" type="Label" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("13_dr4ql")
+text = "level_69_1"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Label3" type="Label" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Terbuka"
+horizontal_alignment = 1
+
+[node name="MinigameContinue" type="Button" parent="UILayer/MinigameWin/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CONTINUE"

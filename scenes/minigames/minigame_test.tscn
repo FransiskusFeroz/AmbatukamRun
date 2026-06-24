@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf7txycvskwun"]
+
+[ext_resource type="Script" uid="uid://2sesrftv416h" path="res://scenes/minigames/test.gd" id="1_8busl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7omqp"]
+radius = 48.6621
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8vfca"]
+
+[node name="Minigame" type="Node"]
+script = ExtResource("1_8busl")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(432, 216)
+shape = SubResource("CircleShape2D_7omqp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(512, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_8vfca")
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-512, 0, 640, 0, 640, 136, -512, 136)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 72.0
+offset_bottom = 31.0
+text = "menang"
+
+[node name="Button2" type="Button" parent="CanvasLayer"]
+offset_top = 32.0
+offset_right = 51.0
+offset_bottom = 63.0
+text = "kalah"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button2" to="." method="_on_button_2_pressed"]

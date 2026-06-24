@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://2ljqoy45rbjb"]
+
+[ext_resource type="Script" uid="uid://ikgalja5bbfa" path="res://scripts/basic_bullet.gd" id="1_parkq"]
+[ext_resource type="Texture2D" uid="uid://dp64hwitfjdwo" path="res://assets/placeholder/Items/weapon_arrow.png" id="2_dvge0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewhg0"]
+size = Vector2(96, 20)
+
+[node name="BasicBullet" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_parkq")
+speed = 2048.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_dvge0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ewhg0")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

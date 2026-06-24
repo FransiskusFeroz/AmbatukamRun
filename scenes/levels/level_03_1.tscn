@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=4 uid="uid://dn1f0t82lxpm8"]
+
+[ext_resource type="Script" uid="uid://dfhyq3wi3h512" path="res://scripts/basic_level.gd" id="1_ssqbw"]
+[ext_resource type="TileSet" uid="uid://d2644xd3tc5ft" path="res://resources/tileset_placeholder.tres" id="2_a2cnw"]
+[ext_resource type="PackedScene" uid="uid://dp177apyk0hyn" path="res://scenes/2d_player.tscn" id="3_oocua"]
+
+[sub_resource type="GDScript" id="GDScript_cmxjs"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since t he previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_body_entered(body) -> void:
+	if body is Entity and body.is_in_group(\"player\"):
+		Game.load_minigame.emit(\"res://scenes/minigames/icebox.tscn\",\"level_basic\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyu7l"]
+size = Vector2(129, 128)
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_ssqbw")
+player = NodePath("Player")
+
+[node name="Tilemap" type="TileMapLayer" parent="."]
+use_parent_material = true
+position = Vector2(1, 0)
+tile_map_data = PackedByteArray("AAACAP//AAACAAAAAAABAP//AAACAAAAAAAAAP//AAACAAAAAAD//wAAAAACAAEAAAD//wEAAAACAAEAAAD//wIAAAACAAEAAAAAAAMAAAACAAAAAAABAAMAAAACAAAAAAACAAMAAAACAAAAAAD/////AAAAAAAAAAD//wMAAAAAAAEAAAADAP//AAAEAAEAAAADAAMAAAAEAAEAAAADAAAAAAAGAAAAAAADAAIAAAAFAAEAAAADAP7/AAAAAAAAAAAEAP7/AAACAAAAAAAFAP7/AAACAAAAAAAGAP7/AAACAAAAAAAHAP7/AAACAAAAAAAIAAQAAAACAAAAAAAHAAQAAAACAAAAAAAGAAQAAAACAAAAAAAFAAQAAAACAAAAAAAEAAQAAAACAAAAAAADAAQAAAAAAAEAAAAJAAQAAAABAAEAAAAJAAAAAAAAAAEAAAAJAAMAAAACAAEAAAAJAP//AAACAAEAAAAHAP//AAAIAAIAAAAHAAAAAAAIAAIAAAAGAAAAAAAIAAIAAAAGAAEAAAAIAAIAAAAFAAEAAAAIAAIAAAAFAAIAAAAIAAIAAAAFAAMAAAAIAAIAAAAEAAMAAAAIAAIAAAAEAAIAAAAIAAIAAAAEAAEAAAAIAAIAAAAEAAAAAAAIAAIAAAAEAP//AAAIAAIAAAAFAP//AAAIAAIAAAAGAP//AAAIAAIAAAAFAAAAAAAIAAIAAAAGAAIAAAAIAAIAAAAHAAIAAAAIAAIAAAAHAAMAAAAIAAIAAAAIAAMAAAAIAAIAAAAIAAIAAAAIAAIAAAAIAAEAAAAIAAIAAAAIAAAAAAAIAAIAAAAHAAEAAAAIAAIAAAAGAAMAAAAIAAIAAAADAAEAAAAFAAEAAAACAAEAAAAIAAIAAAABAAEAAAAIAAIAAAAAAAEAAAAIAAIAAAAAAAIAAAAIAAIAAAABAAIAAAAIAAIAAAACAAAAAAAIAAIAAAABAAAAAAAIAAIAAAAAAAAAAAAIAAIAAAACAAIAAAAIAAIAAAAKAAAAAAACAAAAAAALAAAAAAACAAAAAAAMAAAAAAACAAAAAAAJAAEAAQAIAAIAAAAKAAEAAQAIAAIAAAAMAAEAAQAIAAIAAAANAAAAAAACAAAAAAAOAAAAAAACAAAAAAAPAAAAAAACAAAAAAAQAAAAAAACAAAAAAARAAAAAAACAAAAAAATAAEAAQAIAAIAAAASAAAAAAACAAAAAAANAAEAAQAIAAIAAAAPAAEAAQAIAAIAAAAOAAEAAQAIAAIAAAANAAIAAAACAAAAAAAMAAIAAAACAAAAAAALAAIAAAACAAAAAAAKAAIAAAACAAAAAAAJAAIAAAAAAAAAAAALAAEAAQAIAAIAAAAQAAEAAQAIAAIAAAARAAEAAQAIAAIAAAASAAEAAQAIAAIAAAAOAAIAAAACAAAAAAAPAAIAAAACAAAAAAAQAAIAAAACAAAAAAARAAIAAAACAAAAAAASAAIAAAACAAAAAAAJAP7/AAABAAAAAAAIAP7/AAACAAAAAAAIAP//AAAIAAIAAAA=")
+tile_set = ExtResource("2_a2cnw")
+
+[node name="Player" parent="." instance=ExtResource("3_oocua")]
+position = Vector2(832, 200)
+metadata/_edit_group_ = true
+
+[node name="Camera" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Triggers"]
+script = SubResource("GDScript_cmxjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Area2D"]
+position = Vector2(1224, 189)
+shape = SubResource("RectangleShape2D_hyu7l")
+
+[connection signal="body_entered" from="Triggers/Area2D" to="Triggers/Area2D" method="_on_body_entered"]

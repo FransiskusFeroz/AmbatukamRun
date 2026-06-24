@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx2qmoli8sh7n"]
+
+[ext_resource type="Script" uid="uid://cbsqbhugjj8hc" path="res://scripts/root.gd" id="1_a6qyh"]
+[ext_resource type="Theme" uid="uid://vtu8rkye71a8" path="res://resources/theme.tres" id="1_rdbca"]
+[ext_resource type="Shader" uid="uid://216pndh7l04v" path="res://resources/shaders/title_background.tres" id="2_x5v5p"]
+[ext_resource type="FontFile" uid="uid://bpgo5rk66dacs" path="res://assets/fonts/orbitron/Orbitron-Black.ttf" id="3_4lgvk"]
+[ext_resource type="Shader" uid="uid://dh2trgh1nl1rc" path="res://resources/shaders/title_title.tres" id="4_4rr2b"]
+[ext_resource type="AudioStream" uid="uid://b08dxebdmqbss" path="res://assets/audio/ambience/noise.wav" id="6_4rr2b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17x2y"]
+shader = ExtResource("2_x5v5p")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rr2b"]
+shader = ExtResource("4_4rr2b")
+
+[node name="Root" type="Node"]
+script = ExtResource("1_a6qyh")
+
+[node name="Title" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Title"]
+material = SubResource("ShaderMaterial_17x2y")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Interface" type="Control" parent="Title"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_rdbca")
+
+[node name="Root" type="MarginContainer" parent="Title/Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainDivisor" type="VBoxContainer" parent="Title/Interface/Root"]
+layout_mode = 2
+
+[node name="Upper" type="MarginContainer" parent="Title/Interface/Root/MainDivisor"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="TitleDivisor" type="VBoxContainer" parent="Title/Interface/Root/MainDivisor/Upper"]
+material = SubResource("ShaderMaterial_4rr2b")
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Title/Interface/Root/MainDivisor/Upper/TitleDivisor"]
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_4lgvk")
+theme_override_font_sizes/font_size = 64
+text = "Ambatukam Adventure"
+
+[node name="Subtitle" type="Label" parent="Title/Interface/Root/MainDivisor/Upper/TitleDivisor"]
+use_parent_material = true
+layout_mode = 2
+text = "Nightly Builds
+Pilih level dari drop down"
+
+[node name="Lower" type="MarginContainer" parent="Title/Interface/Root/MainDivisor"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Panel" type="Panel" parent="Title/Interface/Root/MainDivisor/Lower"]
+layout_mode = 2
+
+[node name="Padding" type="MarginContainer" parent="Title/Interface/Root/MainDivisor/Lower"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Buttons" type="VBoxContainer" parent="Title/Interface/Root/MainDivisor/Lower/Padding"]
+custom_minimum_size = Vector2(405.65, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Level" type="OptionButton" parent="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Mainkan"
+
+[node name="Seperator" type="HSeparator" parent="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons"]
+layout_mode = 2
+text = "Keluar"
+
+[node name="Noise" type="AudioStreamPlayer" parent="Title"]
+stream = ExtResource("6_4rr2b")
+volume_db = -20.695
+autoplay = true
+
+[connection signal="pressed" from="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Title/Interface/Root/MainDivisor/Lower/Padding/Buttons/Quit" to="." method="_on_quit_pressed"]
